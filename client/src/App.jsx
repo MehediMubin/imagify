@@ -1,7 +1,13 @@
+import BuyCredit from "./pages/BuyCredit";
+import Home from "./pages/Home";
+import Result from "./pages/Result";
+
 const App = () => {
    return (
       <div>
-         <h1>Imagify</h1>
+         <Home />
+         <Result />
+         <BuyCredit />
       </div>
    );
 };
