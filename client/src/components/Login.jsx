@@ -1,8 +1,17 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { assets } from "../assets/assets";
 
 const Login = () => {
    const [state, setState] = useState("Sign In");
+
+   useEffect(() => {
+      // Disable scrolling when the login form is open
+      document.body.style.overflow = "hidden";
+      return () => {
+         // Re-enable scrolling when the login form is closed
+         document.body.style.overflow = "auto";
+      };
+   }, []);
 
    return (
       <div className="absolute top-0 left-0 right-0 bottom-0 z-10 backdrop-blur-sm bg-black/30 flex justify-center items-center">
