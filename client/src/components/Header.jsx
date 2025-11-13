@@ -57,11 +57,17 @@ const Header = () => {
             <img className="h-6" src={assets.star_group} alt="" />
          </motion.button>
 
-         <div className="flex flex-wrap justify-center mt-16 gap-3">
+         <motion.div
+            className="flex flex-wrap justify-center mt-16 gap-3"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1, duration: 1 }}
+         >
             {Array(6)
                .fill("")
                .map((item, index) => (
-                  <img
+                  <motion.img
+                     whileHover={{ scale: 1.05, duration: 0.1 }}
                      key={index}
                      src={
                         index % 2 === 0
@@ -73,8 +79,15 @@ const Header = () => {
                      width={70}
                   />
                ))}
-         </div>
-         <p className="mt-2 text-neutral-600">Generated images from imagify</p>
+         </motion.div>
+         <motion.p
+            className="mt-2 text-neutral-600"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.2, duration: 0.8 }}
+         >
+            Generated images from imagify
+         </motion.p>
       </motion.div>
    );
 };
