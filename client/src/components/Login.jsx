@@ -56,9 +56,14 @@ const Login = () => {
                />
             </div>
 
-            <p className="text-sm text-blue-600 my-4 cursor-pointer">
-               Forgot password?
-            </p>
+            {state === "Sign In" ? (
+               <p className="text-sm text-blue-600 my-4 cursor-pointer">
+                  Forgot password?
+               </p>
+            ) : (
+                  // preserve vertical spacing when the "Forgot password?" text isn't shown
+                  <div className="my-4" />
+            )}
             <button className="bg-blue-600 w-full text-white py-2 rounded-full cursor-pointer">
                {state === "Sign Up" ? "Create Account" : "Sign In"}
             </button>
