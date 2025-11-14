@@ -26,7 +26,7 @@ const registerUser = async (req, res) => {
 
       const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET);
 
-      rse.json({
+      res.json({
          success: true,
          token,
          user: {
@@ -89,3 +89,5 @@ const loginUser = async (req, res) => {
       });
    }
 };
+
+export { loginUser, registerUser };
