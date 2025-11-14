@@ -1,3 +1,5 @@
+import jwt from "jsonwebtoken";
+
 const userAuth = async (req, res, next) => {
    const { token } = req.headers;
 
@@ -10,7 +12,7 @@ const userAuth = async (req, res, next) => {
 
    try {
       const verified = jwt.verify(token, process.env.JWT_SECRET);
-      req.user.userId = verified.id;
+      req.user = verified;
       next();
    } catch (error) {
       console.error("Authentication middleware error:", error);

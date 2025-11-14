@@ -92,9 +92,9 @@ const loginUser = async (req, res) => {
 
 const userCredits = async (req, res) => {
    try {
-      const { userId } = req.user;
+      const { id } = req.user;
 
-      const user = await UserModel.findById(userId);
+      const user = await UserModel.findById(id);
       if (!user) {
          return res.json({
             success: false,
@@ -119,4 +119,3 @@ const userCredits = async (req, res) => {
 };
 
 export { loginUser, registerUser, userCredits };
-  
