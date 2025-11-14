@@ -41,3 +41,51 @@ const registerUser = async (req, res) => {
       });
    }
 };
+
+const loginUser = async (req, res) => {
+   try {
+      const { email, password } = req.body;
+
+      if (!email || !password) {
+         return res.json({
+            success: false,
+            message: "Please provide all required fields",
+         });
+      }
+
+      const existingUser = await UserModel.findOne({ email });
+      if (!existingUser) {
+         return res.json({
+            success: false,
+            message: "Invalid email or password",
+         });
+      }
+
+      const isPasswordCorrect = await bcrypt.compare(
+         password,
+         existingUser.password
+      );
+      if (!isPasswordCorrect) {
+         return res.json({
+            success: false,
+            message: "Invalid email or password",
+         });
+      }
+
+      const token = jwt.sign({ id: existingUser._id }, process.env.JWT_SECRET);
+
+      res.json({
+         success: true,
+         token,
+         user: {
+            name: existingUser.name,
+         },
+      });
+   } catch (error) {
+      console.error("Error logging in user:", error);
+      res.json({
+         success: false,
+         message: error.message,
+      });
+   }
+};
