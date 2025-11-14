@@ -90,4 +90,33 @@ const loginUser = async (req, res) => {
    }
 };
 
-export { loginUser, registerUser };
+const userCredits = async (req, res) => {
+   try {
+      const { userId } = req.user;
+
+      const user = await UserModel.findById(userId);
+      if (!user) {
+         return res.json({
+            success: false,
+            message: "User not found",
+         });
+      }
+
+      res.json({
+         success: true,
+         creditBalance: user.creditBalance,
+         user: {
+            name: user.name,
+         },
+      });
+   } catch (error) {
+      console.error("Error fetching user credits:", error);
+      res.json({
+         success: false,
+         message: error.message,
+      });
+   }
+};
+
+export { loginUser, registerUser, userCredits };
+  
