@@ -21,7 +21,7 @@ const AppContextProvider = ({ children }) => {
          });
 
          if (data.success) {
-            setCredit(data.credits);
+            setCredit(data.creditBalance);
             setUser(data.user);
          }
       } catch (error) {
@@ -35,8 +35,8 @@ const AppContextProvider = ({ children }) => {
       setToken("");
       setUser(null);
       setCredit(0);
-      toast.success("Logged out successfully."); 
-   }
+      toast.success("Logged out successfully.");
+   };
 
    useEffect(() => {
       if (token) {
