@@ -1,6 +1,7 @@
 import { motion } from "motion/react";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { assets } from "../assets/assets";
+import { AppContext } from "../context/AppContext";
 
 const Result = () => {
    const [image, setImage] = useState(assets.sample_img_1);
@@ -8,8 +9,20 @@ const Result = () => {
    const [loading, setLoading] = useState(false);
    const [input, setInput] = useState("");
 
+   const { generateImage } = useContext(AppContext);
+
    const onSubmitHandler = async (e) => {
       e.preventDefault();
+      setLoading(true);
+
+      if (input) {
+         const image = await generateImage(input);
+         if (image) {
+            setImage(image);
+            setIsImageLoaded(true);
+         }
+      }
+      setLoading(false);
    };
 
    return (
