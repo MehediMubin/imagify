@@ -1,4 +1,6 @@
-import { createContext, useState } from "react";
+import axios from "axios";
+import { createContext, useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 export const AppContext = createContext();
 
@@ -10,6 +12,30 @@ const AppContextProvider = ({ children }) => {
 
    const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
+   const loadCreditsData = async () => {
+      try {
+         const { data } = await axios.get(`${backendUrl}/api/users/credits`, {
+            headers: {
+               token,
+            },
+         });
+
+         if (data.success) {
+            setCredit(data.credits);
+            setUser(data.user);
+         }
+      } catch (error) {
+         console.error("Error fetching credit data:", error);
+         toast.error("Failed to load credit data.");
+      }
+   };
+
+   useEffect(() => {
+      if (token) {
+         loadCreditsData();
+      }
+   }, [token]);
+
    const value = {
       user,
       setUser,
@@ -20,6 +46,7 @@ const AppContextProvider = ({ children }) => {
       setToken,
       credit,
       setCredit,
+      loadCreditsData,
    };
 
    return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
